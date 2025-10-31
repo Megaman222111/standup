@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Edit Stand-Up Timings.</title>
+    </head>
+    <body class="center"><main class="form-signin">
+        {% block content %}
+        <div class="border border-dark">
+        <form class="pure-form pure-form-aligned text-center" method="POST" action=".">
+          {% csrf_token %}
+          <section>
+            <fieldset>
+              <img class="mb-4" src="https://raw.githubusercontent.com/Megaman222111/standup-css/main/LogoWhite.png" alt="" >
+              <h3 class="h3">Edit Stand-Up Timings.</h3><br>
+              <p>Enter The Specific Amount of Hours We Should Remind You To Stand-Up In (Decimals Are Allowed).</p>
+              <label for="stacked-text" class="h6">Enter Timings: </label>
+
+            <div id="stacked-text" placeholder="Timings">{{form.time_standing}}</div><br><br>
+                <button type="submit" id="button1" class="pure-button btn-primary text-white">Submit</button><br><br>
+                {{form.errors}}
+                <br><br>
+                <p class="pure-form-message"><a href="{% url "home" %}">Go Back To Dashboard</a></p>
+              </fieldset>
+            </form>
+          </section>
+        </div>
+        </main>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/login.css" crossorigin="anonymous" rel="stylesheet">
+{% endblock %}
+</body>
+</html>

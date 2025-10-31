@@ -1,0 +1,18 @@
+<body onload="sendEmail()"></body>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+    function sendEmail() {
+        a="mmistry169@gmail.com";
+Email.send({
+    Host : "smtp.stand-up.a2hosted.com",
+    Username : "standup3@smtp.stand-up.a2hosted.com",
+    Password : "7[Gas4BxjI6&",
+    To : a,
+    From : "standup3@smtp.stand-up.a2hosted.com",
+    Subject : "This is the subject",
+    Body : "And this is the body"
+}).then(
+  message => alert("mail sent okay")
+);
+}
+</script>

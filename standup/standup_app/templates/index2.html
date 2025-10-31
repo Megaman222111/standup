@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html lang="en">
+   <head>
+      <link href="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css@main/index2.css" crossorigin="anonymous" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.2/lux/bootstrap.min.css" integrity="sha512-JQH/PgL2GI/QRtL8+26f9MUeF1nvl/wI7vBiHSvZdD6PRLu3/wOlVDOF0k/QLfV5kU8rmuDeFoJ2gPIT0qlDmQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous" rel="stylesheet">
+   </head>
+   <body onload="init();">
+      {% if user.is_authenticated %}
+      <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Stand Up.</a>
+         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap"></li>
+               <form class="logout-link" id="logout" action="{% url 'logout' %}" method="POST">
+                  {% csrf_token %}
+               <a class="nav-link" onclick="document.getElementById('logout').submit();">Logout</a>
+            </form>
+            </li>
+         </ul>
+      </header>
+      <div class="container-fluid">
+         <div class="row">
+           <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+             <div class="pt-3">
+               <ul class="nav flex-column">
+                 <li class="nav-item">
+                   <a class="nav-link active" aria-current="page" href="#">
+                     <span data-feather="home"></span>
+                     Dashboard
+                   </a>
+                 </li>
+               </ul>
+                 
+               <b><span>Account Settings</span></b>
+               </h6>
+               <ul class="nav flex-column mb-2">
+                 <li class="nav-item">
+                   <a class="nav-link" href="/edit_profile/">
+                     <span data-feather="user"></span>
+                     Change Account Info
+                   </a>
+                 </li>
+               </ul>
+               <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/password/">
+                      <span data-feather="key"></span>
+                      Reset Password
+                    </a>
+                  </li>
+                </ul>
+                <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/edit_timings/">
+                      <span data-feather="watch"></span>
+                      Edit Stand-Up Timings
+                    </a>
+                  </li>
+                </ul>
+             </div>
+           </nav>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                  <h1 class="h2">Dashboard</h1><br><br>
+               </div>
+               <h2>Hi {{ user.first_name }}!</h2>
+               <br><br>
+               <div class="row">
+                  <div id="webcam-container"></div>
+                  <div class="col-sm">
+                     <div id="label-container"></div>
+                     <div class="card text-white bg-success mb-3 rounded" style="width: 20rem; height: 7rem;">
+                        <div class="card-header">
+                           <h5 class="text-white">Your Position</h5>
+                        </div>
+                        <div class="card-body">
+                           <p id="final_result" class="card-text font-weight-bold"></p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm">
+                     <div id="label-container"></div>
+                     <div class="card text-white bg-primary mb-3 rounded" style="width: 20rem; height: 7rem;">
+                        <div class="card-header">
+                           <h5 class="text-white">Seconds Till Last Stand</h5>
+                        </div>
+                        <div class="card-body">
+                           <p class="card-text font-weight-bold" id="counter"></p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm">
+                     <div id="label-container"></div>
+                     <div class="card text-white bg-danger mb-3 rounded" style="width: 20rem; height: 7rem;">
+                        <div class="card-header">
+                           <h5 class="text-white">Total Time Sitting At Desk</h5>
+                        </div>
+                        <div class="card-body">
+                           <p class="card-text font-weight-bold" id="sitting-counter"></p><br><br>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm">
+                     <div id="label-container"></div>
+                     <div class="card text-white bg-info mb-3 rounded" style="width: 20rem; height: 7rem;">
+                        <div class="card-header">
+                           <h5 class="text-white">Total Time Standing At Desk</h5>
+                        </div>
+                        <div class="card-body">
+                           <p class="card-text font-weight-bold" id="standing-counter"></p><br><br>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+               <div class="container text-center">
+                  <div class="col-sm">
+                     <div class="card1" style="padding-top: 2rem; padding-left: 30%;">
+                        <div class="card border-primary mb-3 rounded" style="width: 20rem; height: 20rem;">
+                           <div class="card-header">
+                              <h3>Camera</h3>
+                           </div>
+                           <div class="card-body">
+                              <div class="video-mask text-center">
+                                 <video autoplay="true" width= "360" height= "360" id="videoElement" style="width: 18rem; height: 18rem; padding-bottom: 3.3rem;"></video>
+                                 <br>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+               </div>
+         </div>
+      </div>
+      </div>
+      </div>
+      </main>
+      </div>
+      </div>
+      <script>
+         var a = "{{user.email}}";
+         var e = "{{user.profile.time_standing}}"
+         var g = "{{user.first_name}}"
+      </script>      
+      <script src="https://smtpjs.com/v3/smtp.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/feather-replace.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css@main/index171.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js" crossorigin="anonymous"></script>
+
+      {% else %}
+      <body class="center text-center"><main class="form-signin">
+      <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" crossorigin="anonymous" rel="stylesheet">
+      <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/login.css" crossorigin="anonymous" rel="stylesheet">
+           <div class="border border-dark">
+            <form class="pure-form pure-form-aligned" method="POST" action=".">
+              {% csrf_token %}
+              <section>
+                <fieldset>
+                  <img class="mb-4" src="https://raw.githubusercontent.com/Megaman222111/standup-css/main/LogoWhite.png" alt="" style=" width:auto; height:auto; ">
+                  <h1>You are not logged in.</h1>
+                  <p>Try logging back into this website. The login page can be found: <b><a href="{% url 'login' %}">here</a></b></p>
+                  </fieldset>
+                </form>
+              </section>
+            </div>
+            </main>
+      </body>
+      {% endif %}
+   </body>
+</html>

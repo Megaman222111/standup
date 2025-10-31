@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Megh Mistry">
+    <title>Stand-Up Sign-Up</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/login.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous" rel="stylesheet" >
+    <style>
+    </style>
+  </head>
+  
+  <body class="center">
+    <script>
+      function function_() {
+        var x= document.getElementById('stacked-password')
+        var y= document.getElementById('stacked-confirm-password')
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+
+        if (y.type === "password") {
+          y.type = "text";
+        } else {
+          y.type = "password";
+        }
+      }
+      </script>
+    <main class="form-signin">
+      <div class="border border-dark">
+      <form class="pure-form pure-form-aligned" method="POST" action="">
+        <section>
+          <fieldset>
+            <img class="mb-4" src="LogoWhite.png" alt="" >
+            <h3 class="h3">Sign Up.</h3><br>
+            <label for="FirstName" class="h6">First Name</label>
+            <input type="text" id="FirstName" placeholder="First Name" /><br><br>
+            <label for="LastName" class="h6">Last Name</label>
+            <input type="text" id="LastName" placeholder="Last Name" /><br><br>
+            <label for="stacked-email" class="h6">Email</label>
+            <input type="email" id="stacked-email" placeholder="Email" /><br><br>
+            <label for="stacked-password" class="h6">Password</label>
+            <input type="password" id="stacked-password" placeholder="Password"/><br><br>
+            <label for="stacked-confirm-password" class="h6">Confirm Password</label>
+            <input type="password" id="stacked-confirm-password" placeholder="Confirm Password"/><br><br>
+            <label for="stacked-remember" class="pure-checkbox">
+              <input type="checkbox" onclick="function_()" id="stacked-remember"/> Show Password</label>
+              <button type="submit" id="button1" value="Signup"class="pure-button btn-primary text-white">Sign in</button>
+            </fieldset>
+          </form>
+        </section>
+      </div>
+      </main>
+    <div id="message">
+      <h6><b>Password must contain the following:</b></h6>
+      <h6 id="letter" class="invalid">A <b>lowercase</b> letter</h6>
+      <h6 id="capital" class="invalid">A <b>capital (uppercase)</b> letter</h6>
+      <h6 id="number" class="invalid">A <b>number</b></h6>
+      <h6 id="length" class="invalid">Minimum <b>8 characters</b></h6>
+      <h6 id="same" class="invalid"><b>Confirm password</b> and <b>password</b> are the <b>same</b></h6>
+    </div>
+    <script>
+      var myInput = document.getElementById("stacked-password");
+      var myInput1 = document.getElementById("stacked-confirm-password");
+      var letter = document.getElementById("letter");
+      var capital = document.getElementById("capital");
+      var number = document.getElementById("number");
+      var length = document.getElementById("length");
+      var same = document.getElementById("same");
+      
+      document.getElementById("message").style.display = "block";
+
+      
+      myInput.onkeyup = function() {
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {  
+          letter.classList.remove("invalid");
+          letter.classList.add("valid");
+        } else {
+          letter.classList.remove("valid");
+          letter.classList.add("invalid");;
+        }
+        
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {  
+          capital.classList.remove("invalid");
+          capital.classList.add("valid");
+        } else {
+          capital.classList.remove("valid");
+          capital.classList.add("invalid");
+        }
+      
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {  
+          number.classList.remove("invalid");
+          number.classList.add("valid");
+        } else {
+          number.classList.remove("valid");
+          number.classList.add("invalid");
+        }
+        
+        if(myInput.value.length >= 8) {
+          length.classList.remove("invalid");
+          length.classList.add("valid");
+        } else {
+          length.classList.remove("valid");
+          length.classList.add("invalid");
+        }
+        if(myInput.value == "") {
+        same.classList.remove("valid");
+        same.classList.add("invalid");
+        } else {
+          same.classList.remove("invalid");
+          same.classList.add("valid");
+      }
+
+      if(myInput1.value == "") {
+        same.classList.remove("valid");
+        same.classList.add("invalid");
+        }
+
+      if(myInput.value == myInput1.value) {
+        same.classList.remove("valid");
+        same.classList.add("invalid");
+        }
+    }
+    
+    myInput1.onkeyup = function(){
+      if(myInput.value == "") {
+        same.classList.remove("valid");
+        same.classList.add("invalid");
+        }
+
+      if(myInput1.value == "") {
+        same.classList.remove("valid");
+        same.classList.add("invalid");
+        }
+
+      if(myInput.value == myInput1.value) {
+        same.classList.remove("invalid");
+        same.classList.add("valid");
+        } else {
+          same.classList.remove("valid");
+          same.classList.add("invalid");
+      }
+    }
+      </script>
+    </body>
+</html>

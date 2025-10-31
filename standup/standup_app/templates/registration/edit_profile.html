@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Megh Mistry">
+    <title>Edit Profile.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/sign-up.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous" rel="stylesheet">
+    {% if user.is_authenticated %}
+  </head>
+  <style>
+    .feather-skip-back-1{
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+  </style>
+  <body class="center">
+    <main class="form-signin">
+      <div class="border border-dark">
+      <form class="pure-form pure-form-aligned" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <section>
+          <fieldset>
+            <img class="mb-4" src="https://raw.githubusercontent.com/Megaman222111/standup-css/main/LogoWhite.png" alt="" >
+            <h3 class="h3">Sign Up.</h3><br>
+            <label for="FirstName" class="h6">First Name</label>
+            <span id="FirstName" placeholder="Username">{{form.first_name}}</span><br><br>
+            <label for="LastName" class="h6">Last Name</label>
+            <span id="LastName" placeholder="Username">{{form.last_name}}</span><br><br>
+            <label for="UserName" class="h6">Username</label>
+            <span id="UserName" placeholder="Username">{{form.username}}</span><br><br>
+            <label for="stacked-email" class="h6">Email</label>
+            <span id="stacked-email" placeholder="Email">{{form.email}}</span><br><br>
+            <label for="stacked-password" class="h6">Password Info: </label><br><br>
+            <span id="stacked-password" placeholder="Password">{{form.password}}</span>
+            <p class="pure-form-message">Raw passwords are not stored, so there is no way to see this user’s password, but you can change the password using <b><a href="/password/">this form.</a></b></p>
+            <button type="submit" class="pure-button btn-primary text-white">Update Profile</button><br><br>
+            <p class="pure-form-message"><a href="{% url "home" %}">Go Back To Dashboard</a></p>
+          </fieldset>
+          </form>
+        </section>
+      </div>
+      </main>
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/feather-replace.js" crossorigin="anonymous"></script>
+    </body>
+</html>
+{% endif %}

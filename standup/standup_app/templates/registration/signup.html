@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Megh Mistry">
+    <title>Sign-Up.</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/Megaman222111/standup-css/sign-up.css" crossorigin="anonymous" rel="stylesheet">
+    <link href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" crossorigin="anonymous" rel="stylesheet">
+    <style>
+    </style>
+  </head>
+  
+  <body class="center">
+    <main class="form-signin">
+      <div class="border border-dark">
+      <form class="pure-form pure-form-aligned" method="POST">
+        {% csrf_token %}
+        <section>
+          <fieldset>
+            <h2 class="h2">Stand-Up.</h2><br><br>
+            <h4 class="h4">Sign Up.</h4><br>
+            <label for="FirstName" class="h6">First Name</label>
+            <span id="FirstName" placeholder="Username">{{form.first_name}}</span><br><br>
+            <label for="LastName" class="h6">Last Name</label>
+            <span id="LastName" placeholder="Username">{{form.last_name}}</span><br><br>
+            <label for="UserName" class="h6">Username</label>
+            <span id="UserName" placeholder="Username">{{form.username}}</span><br><br>
+            <label for="stacked-email" class="h6">Email</label>
+            <span id="stacked-email" placeholder="Email">{{form.email}}</span><br><br>
+            <label for="stacked-password" class="h6">Password</label>
+            <span id="stacked-password" placeholder="Password">{{form.password1}}</span><br><br>
+            <label for="stacked-confirm-password" class="h6">Confirm Password</label>
+            <span type="password" id="stacked-confirm-password" placeholder="Confirm Password">{{form.password2}}</span><br><br>
+            <label for="stacked-remember" class="pure-checkbox">
+              <p class="pure-form-message"><a href="{% url "login" %}">Already have an account?</a></p>
+              <button type="submit" id="button1" class="pure-button btn-primary text-white">Sign in</button>
+              {{form.errors}}
+            </fieldset>
+          </form>
+        </section>
+      </div>
+      </main>
+    </body>
+</html>
